@@ -16,8 +16,8 @@ const router = new Router()
 
 router.get('/auth/request', (ctx) =>
   rp({
-    method: 'POST',
     url: REQUEST_TOKEN_URL,
+    method: 'POST',
     oauth: {
       consumer_key,
       consumer_secret
@@ -32,8 +32,8 @@ router.get('/auth/request', (ctx) =>
 
 router.get('/auth/callback', (ctx) =>
   rp({
-    method: 'POST',
     url: ACCESS_TOKEN_URL,
+    method: 'POST',
     oauth: {
       consumer_key,
       consumer_secret,
