@@ -1,7 +1,7 @@
 const uuid = require('uuid')
 const { generate } = require('oauth-signature')
 
-const createAuthorization = (url, method, oauth_consumer_key, oauth_consumer_secret, { oauth_token_secret, params } = {}) => {
+const oauthAuthorization = (url, method, oauth_consumer_key, oauth_consumer_secret, { oauth_token_secret, params } = {}) => {
   const parameters = Object.assign({ oauth_consumer_key }, baseParams(), params)
   const oauth_signature = generate(method, url, parameters, oauth_consumer_secret, oauth_token_secret)
   return `OAuth ${concatParams(parameters, oauth_signature)}`
@@ -43,4 +43,4 @@ const rfc3986 = {
     .replace(/\*/g, "%2A")
 }
 
-module.exports = createAuthorization
+module.exports = oauthAuthorization

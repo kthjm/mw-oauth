@@ -4,20 +4,13 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "node": "node -r dotenv/config",
-    "listen:fetch": "yarn node src/fetch.js",
-    "listen:got": "yarn node src/got.js",
-    "listen:grant": "yarn node src/grant.js",
-    "listen:passport": "yarn node src/passport.js",
-    "listen:rp": "yarn node src/rp.js",
-    "listen": "run-p listen:fetch listen:got listen:grant listen:passport listen:rp",
-    "open:fetch": "yarn opn http://localhost:7001/auth/request",
-    "open:got": "yarn opn http://localhost:7002/auth/request",
-    "open:grant": "yarn opn http://localhost:7003/connect/tumblr",
-    "open:passport": "yarn opn http://localhost:7004/auth/request",
-    "open:rp": "yarn opn http://localhost:7005/auth/request",
-    "open": "run-s open:fetch open:got open:grant open:passport open:rp",
-    "prestart": "yarn open",
+    "nenv": "node -r dotenv/config",
+    "fetch": "yarn nenv src/7001.fetch.js",
+    "got": "yarn nenv src/7002.got.js",
+    "rp": "yarn nenv src/7003.rp.js",
+    "grant": "yarn nenv src/7004.grant.js",
+    "passport": "yarn nenv src/7005.passport.js",
+    "listen": "run-p fetch got rp grant passport",
     "start": "yarn listen"
   },
   "dependencies": {
@@ -33,6 +26,7 @@
     "koa-session": "^5.8.1",
     "node-fetch": "^2.0.0",
     "oauth-signature": "^1.5.0",
+    "opn": "^5.2.0",
     "passport-oauth": "^1.0.0",
     "request-promise-native": "^1.0.5",
     "uuid": "^3.2.1"
@@ -40,7 +34,6 @@
   "devDependencies": {
     "dotenv": "^5.0.0",
     "npm-run-all": "^4.1.2",
-    "opn-cli": "^3.1.0",
     "supertest": "^3.0.0"
   }
 }
