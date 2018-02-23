@@ -5,22 +5,23 @@ const rp = require('request-promise-native')
 const qs = require('querystring')
 const { createJWT, verifyJWT } = require('./JWT.js')
 
-const PORT = 7000
+const PORT = 7005
 const BASE = 'https://www.tumblr.com/oauth'
 const REQUEST_TOKEN_URL = `${BASE}/request_token`
 const AUTHORIZE_URL = `${BASE}/authorize`
 const ACCESS_TOKEN_URL = `${BASE}/access_token`
 const { CONSUMER_KEY: consumer_key, CONSUMER_SECRET: consumer_secret } = process.env
+const CALLBACK_PATH = '/auth/callback'
 
 const router = new Router()
-
-router.get('/auth/request', (ctx) =>
+.get('/auth/request', (ctx) =>
   rp({
     url: REQUEST_TOKEN_URL,
     method: 'POST',
     oauth: {
       consumer_key,
-      consumer_secret
+      consumer_secret,
+      callback: `http://localhost:${PORT}${CALLBACK_PATH}`
     }
   })
   .then(querystring => qs.parse(querystring))
@@ -29,8 +30,7 @@ router.get('/auth/request', (ctx) =>
     ctx.redirect(`${AUTHORIZE_URL}?oauth_token=${oauth_token}`)
   })
 )
-
-router.get('/auth/callback', (ctx) =>
+.get(CALLBACK_PATH, (ctx) =>
   rp({
     url: ACCESS_TOKEN_URL,
     method: 'POST',
@@ -63,4 +63,4 @@ app
 .use(logger())
 .use(router.routes())
 .use(router.allowedMethods())
-.listen(PORT, () => console.log('has listen'))
+.listen(PORT, () => console.log(`has listen > ${PORT}`))

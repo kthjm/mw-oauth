@@ -7,7 +7,7 @@ const passport = require('koa-passport')
 const OAuthStrategy = require('passport-oauth1')
 const { createJWT, verifyJWT } = require('./JWT.js')
 
-const PORT = 7000
+const PORT = 7004
 const BASE = 'https://www.tumblr.com/oauth'
 const { CONSUMER_KEY: consumerKey, CONSUMER_SECRET: consumerSecret } = process.env
 
@@ -68,4 +68,4 @@ app
 .use(passport.session())
 .use(router.routes())
 .use(router.allowedMethods())
-.listen(PORT, () => console.log('has listen'))
+.listen(PORT, () => console.log(`has listen > ${PORT}`))

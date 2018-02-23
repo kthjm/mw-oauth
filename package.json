@@ -4,12 +4,21 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "daemon": "nodemon -w src",
-    "listen:fetch": "yarn daemon -x \"node -r dotenv/config src/fetch.js\"",
-    "listen:got": "yarn daemon -x \"node -r dotenv/config src/got.js\"",
-    "listen:grant": "yarn daemon -x \"node -r dotenv/config src/grant.js\"",
-    "listen:passport": "yarn daemon -x \"node -r dotenv/config src/passport.js\"",
-    "listen:rp": "yarn daemon -x \"node -r dotenv/config src/rp.js\""
+    "node": "node -r dotenv/config",
+    "listen:fetch": "yarn node src/fetch.js",
+    "listen:got": "yarn node src/got.js",
+    "listen:grant": "yarn node src/grant.js",
+    "listen:passport": "yarn node src/passport.js",
+    "listen:rp": "yarn node src/rp.js",
+    "listen": "run-p listen:fetch listen:got listen:grant listen:passport listen:rp",
+    "open:fetch": "yarn opn http://localhost:7001/auth/request",
+    "open:got": "yarn opn http://localhost:7002/auth/request",
+    "open:grant": "yarn opn http://localhost:7003/connect/tumblr",
+    "open:passport": "yarn opn http://localhost:7004/auth/request",
+    "open:rp": "yarn opn http://localhost:7005/auth/request",
+    "open": "run-s open:fetch open:got open:grant open:passport open:rp",
+    "prestart": "yarn open",
+    "start": "yarn listen"
   },
   "dependencies": {
     "got": "^8.1.0",
@@ -30,7 +39,8 @@
   },
   "devDependencies": {
     "dotenv": "^5.0.0",
-    "nodemon": "^1.15.0",
+    "npm-run-all": "^4.1.2",
+    "opn-cli": "^3.1.0",
     "supertest": "^3.0.0"
   }
 }

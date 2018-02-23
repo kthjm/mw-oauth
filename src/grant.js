@@ -6,7 +6,7 @@ const mount = require('koa-mount')
 const Grant = require('grant-koa')
 const { createJWT, verifyJWT } = require('./JWT.js')
 
-const PORT = 7000
+const PORT = 7003
 const grant_callback = '/connected/tumblr'
 
 const grant = new Grant({
@@ -15,8 +15,8 @@ const grant = new Grant({
     host: `localhost:${PORT}`
   },
   tumblr: {
-    key: process.env.CONSUMER_KEY_GRANT,
-    secret: process.env.CONSUMER_SECRET_GRANT,
+    key: process.env.CONSUMER_KEY,
+    secret: process.env.CONSUMER_SECRET,
     callback: grant_callback
   }
 })
@@ -45,4 +45,4 @@ app
 .use(mount(grant))
 .use(router.routes())
 .use(router.allowedMethods())
-.listen(PORT, () => console.log('has listen'))
+.listen(PORT, () => console.log(`has listen > ${PORT}`))
