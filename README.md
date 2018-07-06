@@ -1,4 +1,4 @@
-# misao writing for `oauth`
+# misao writing about OAuth
 
 haven't touched `OAuth2.0` yet 😅
 
